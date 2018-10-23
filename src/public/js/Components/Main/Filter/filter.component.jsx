@@ -9,7 +9,7 @@ class FilterComponent extends React.Component {
     render() {
         return (
             <div>
-                <Skills />
+                <Skills handleChange={this.props.handleChange} jobSkills={this.props.jobSkills} filteredJobs={this.props.filteredJobs}/>
                 <Availablity />
             </div>
         )
