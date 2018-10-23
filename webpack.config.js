@@ -17,8 +17,30 @@ module.exports = {
             },
             {
                 test: /\.(js||jsx)$/,
-                use: "babel-loader"
-            }
+                use: [{
+                    loader: "babel-loader",
+                    options: {
+                        plugins: [
+                          ['import', { libraryName: "antd", style: true }]
+                        ]
+                    }
+                }],
+                exclude: /node_modules/,
+                
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    {loader: "style-loader"},
+                    {loader: "css-loader"},
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }
+                ]
+            },
         ]
     }
 }
