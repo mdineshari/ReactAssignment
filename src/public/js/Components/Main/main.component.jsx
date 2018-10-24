@@ -91,10 +91,10 @@ class MainComponent extends React.Component {
                     <Col span={8}>
                         <FilterComponent handleChange={this.handleChange} jobLanguage={this.state.jobLanguage} jobLocation={this.state.jobLocation} jobPrice={this.state.jobPrice} jobExperience={this.state.jobExperience} jobAvailability = {this.state.jobAvailability} jobType={this.state.jobType} jobSkills={this.state.jobSkills} filteredJobs={this.state.filteredJobs}/>
                     </Col>
-                    <Col span={8}>
-                        <ResultComponent />
+                    <Col span={12}>
+                        <ResultComponent jobs={this.state.jobs} />
                     </Col>
-                    <Col span={8}>
+                    <Col span={4}>
                         <SideBarComponent />
                     </Col>
                 </Row>

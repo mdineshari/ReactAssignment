@@ -10,7 +10,7 @@ class SideBarComponent extends React.Component {
                     title=""
                     style={{ width: 300 }}
                 >
-                    <div class="logoImageContainer">
+                    <div className="logoImageContainer">
                         <img src="" />
                     </div>
                         <p>Track Time on Hubstaff</p>
