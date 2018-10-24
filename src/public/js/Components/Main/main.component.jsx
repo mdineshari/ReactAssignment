@@ -88,13 +88,13 @@ class MainComponent extends React.Component {
         return (
             <Content style={{ padding: '0 50px' }}>
                 <Row gutter={16}>
-                    <Col span={6}>
+                    <Col span={8}>
                         <FilterComponent handleChange={this.handleChange} jobLanguage={this.state.jobLanguage} jobLocation={this.state.jobLocation} jobPrice={this.state.jobPrice} jobExperience={this.state.jobExperience} jobAvailability = {this.state.jobAvailability} jobType={this.state.jobType} jobSkills={this.state.jobSkills} filteredJobs={this.state.filteredJobs}/>
                     </Col>
-                    <Col span={12}>
+                    <Col span={8}>
                         <ResultComponent />
                     </Col>
-                    <Col span={6}>
+                    <Col span={8}>
                         <SideBarComponent />
                     </Col>
                 </Row>

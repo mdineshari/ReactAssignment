@@ -8,7 +8,6 @@ class Language extends React.Component {
     constructor(props) {
         super(props);
         this.getJobLanguage = this.getJobLanguage.bind(this);
-
     }
     getJobLanguage() {
         var options=[];
