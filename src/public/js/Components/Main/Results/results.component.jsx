@@ -13,7 +13,7 @@ class ResultComponent extends React.Component {
             <div className="results_title">
                 <Row gutter={48}>
                     <Col span={8}>
-                        <h4>`Results ({this.props.jobs.length})`</h4>
+                        <h4>Results ({this.props.jobs.length})</h4>
                     </Col>
                     <Col span={4}>
                     </Col>
