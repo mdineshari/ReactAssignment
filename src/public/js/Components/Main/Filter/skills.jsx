@@ -7,15 +7,17 @@ const Option = Select.Option;
 class Skills extends React.Component {
     constructor(props) {
         super(props);
-
+        this.getJobSkills = this.getJobSkills.bind(this);
+    }
+    getJobSkills() {
+        var options=[];
+        this.props.jobSkills.forEach( (ele,key) => {
+            options.push(<Option value={ele} key={key}>{ele}</Option>);
+        });
+        return options;
     }
     render() {
-        const {jobSkills} = this.props;
-        const children = [];
-        jobSkills.forEach(function(ele,key) {
-            children.push(<Option key={ele}>{ele}</Option>);
-        });
-
+        const job_skills = this.getJobSkills();
         return (
             <Card
                 title="Skills"
@@ -28,7 +30,7 @@ class Skills extends React.Component {
                     placeholder=""
                     onChange={this.handleChange}
                 >
-                    {children}
+                    {job_skills}
                 </Select>
             </Card>        )
     }
