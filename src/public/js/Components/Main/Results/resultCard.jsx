@@ -14,38 +14,28 @@ class ResultCard extends React.Component {
                 Skills.push(<Tag key={k}>{e}</Tag>);                
             });
             var job = (
-                <Card>
-                    <Row>
-                        <Col span={12}>
-                            <h4>{ele.job_title} &nbsp; <span className={ele.job_availability}>{ele.job_availability}</span></h4>
+                <Card key={key}>
+                    <Row gutter={64}>
+                        <Col span={16}>
+                            <h4>{ele.job_title} &nbsp; <Tag className={ele.job_availability}>{ele.job_availability}</Tag></h4>
                         </Col>
                         <Col span={4}>
                         </Col>
-                        <Col span={8}>
-                            ${ele.job_price}/hr
+                        <Col span={4}>
+                            <b>${ele.job_price} /hr</b>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={24}>
-                            <p>Epic Coders &nbsp; {ele.job_location}</p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <p>Reply Rate: {ele.job_replyRate}%</p>
+                            <p><span className="result_coder">Epic Coders</span> &nbsp; <span className="result_location">{ele.job_location}</span><br/>
+                            <span className="result_rate">Reply Rate: <b>{ele.job_replyRate}%</b></span></p>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={24}></Col>
                     </Row>
                     <Row>
-                        <Col span={24}>{ele.job_description}</Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}></Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>{Skills}</Col>
+                        <Col span={24} className="result_description">{ele.job_description}<br/><br/>{Skills}</Col>
                     </Row>
                 </Card>
             )

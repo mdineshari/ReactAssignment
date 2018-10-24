@@ -3,6 +3,7 @@ import {Pagination,Row,Col,Select} from 'antd';
 const Option = Select.Option;
 
 import ResultCard from './resultCard.jsx';
+import './result.less';
 
 class ResultComponent extends React.Component {
     constructor(props) {
@@ -19,13 +20,14 @@ class ResultComponent extends React.Component {
                     </Col>
                     <Col span={12}>
                         <span>Sort by &nbsp; 
-                            <Select style={{ width: 200 }} optionFilterProp="children" filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+                            <Select style={{ width: 100 }} optionFilterProp="children" filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
                                 <Option value='Relevance'>Relevance</Option>
                                 <Option value='Price'>Price</Option>
                             </Select> 
                         </span>
                     </Col>
                 </Row>
+                <br/><br/>
                 <ResultCard jobs = {this.props.jobs} />
                 <Pagination defaultCurrent={1} total={10} />,
 
