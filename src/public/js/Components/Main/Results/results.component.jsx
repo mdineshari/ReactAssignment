@@ -10,6 +10,7 @@ class ResultComponent extends React.Component {
         super(props);
     }
     render() {
+        console.log(this.props.jobs);
         return(
             <div className="results_title">
                 <Row gutter={48}>

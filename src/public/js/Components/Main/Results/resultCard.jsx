@@ -8,39 +8,41 @@ class ResultCard extends React.Component {
     }
     getJobStructure() {
         var jobs = [];
-        this.props.jobs.forEach( (ele,key) => {
-            var Skills = [];
-            ele.job_skills.split(',').forEach((e,k) => {
-                Skills.push(<Tag key={k}>{e}</Tag>);                
-            });
-            var job = (
-                <Card key={key}>
-                    <Row gutter={64}>
-                        <Col span={16}>
-                            <h4>{ele.job_title} &nbsp; <Tag className={ele.job_availability}>{ele.job_availability}</Tag></h4>
-                        </Col>
-                        <Col span={4}>
-                        </Col>
-                        <Col span={4}>
-                            <b>${ele.job_price} /hr</b>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <p><span className="result_coder">Epic Coders</span> &nbsp; <span className="result_location">{ele.job_location}</span><br/>
-                            <span className="result_rate">Reply Rate: <b>{ele.job_replyRate}%</b></span></p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}></Col>
-                    </Row>
-                    <Row>
-                        <Col span={24} className="result_description">{ele.job_description}<br/><br/>{Skills}</Col>
-                    </Row>
-                </Card>
-            )
-            jobs.push(job)
-        });  
+        if(this.props.jobs.length > 0 ){
+            this.props.jobs.forEach( (ele,key) => {
+                var Skills = [];
+                ele.job_skills.split(',').forEach((e,k) => {
+                    Skills.push(<Tag key={k}>{e}</Tag>);                
+                });
+                var job = (
+                    <Card key={key}>
+                        <Row gutter={64}>
+                            <Col span={16}>
+                                <h4>{ele.job_title} &nbsp; <Tag className={ele.job_availability}>{ele.job_availability}</Tag></h4>
+                            </Col>
+                            <Col span={4}>
+                            </Col>
+                            <Col span={4}>
+                                <b>${ele.job_price} /hr</b>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={24}>
+                                <p><span className="result_coder">Epic Coders</span> &nbsp; <span className="result_location">{ele.job_location}</span><br/>
+                                <span className="result_rate">Reply Rate: <b>{ele.job_replyRate}%</b></span></p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={24}></Col>
+                        </Row>
+                        <Row>
+                            <Col span={24} className="result_description">{ele.job_description}<br/><br/>{Skills}</Col>
+                        </Row>
+                    </Card>
+                )
+                jobs.push(job)
+            });  
+        }   
         return jobs;
     }
     render() {

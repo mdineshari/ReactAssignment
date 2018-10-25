@@ -12,127 +12,99 @@ class MainComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            jobSkills: [],
             jobs:[],
+            filterObject:{
+                job_skills: [],
+                job_availability: [],
+                job_type: [],
+                job_experience_level: [],
+                job_location: [],
+                job_language: [],
+                job_price: []
+            },
             filteredJobs: [],
-            jobAvailability: [],
-            jobType: [],
-            jobPrice: [],
-            jobExperience: [],
-            jobLanguage: [],
-            jobLocation: []
+            resultObject: {
+                job_skills: [],
+                job_availability: [],
+                job_type: null,
+                job_experience_level: null,
+                job_location: [],
+                job_language: [],
+                job_price: null
+            }
         }
         this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
         axios.get('/api/getJobSkills').then(res => {
-            var jobSkills = [];
-            var jobAvailability = [];
-            var jobType = [];
-            var jobPrice = [];
-            var jobExperience = [];
-            var jobLanguage = [];
-            var jobLocation = [];
+            let newobject=this.state.filterObject;
             this.setState({
                 jobs: res.data
             });
             res.data.map( (ele,key) => {
-                ele.job_skills.split(',').map( (e,k) => {
-                    if(jobSkills.indexOf(e) < 0) {
-                        jobSkills.push(e);
+                for(var key in ele) {
+                    if(key=='job_skills') {
+                        ele[key].split(',').map( (e,k) => {
+                            if(newobject[key] && newobject[key].indexOf(e) < 0) {
+                                newobject[key].push(e);
+                            }
+                        });
+                    } else {
+                        if(newobject[key] && newobject[key].indexOf(ele[key]) < 0 && ele[key] != null) {
+                            newobject[key].push(ele[key]);
+                        }
                     }
-                });
-                if(jobAvailability.indexOf(ele.job_availability) < 0) {
-                    jobAvailability.push(ele.job_availability);
                 }
-                if(jobType.indexOf(ele.job_type) < 0 && ele.job_type != null) {
-                    jobType.push(ele.job_type);
-                }
-                if(jobPrice.indexOf(ele.job_price) < 0 && ele.job_price != null) {
-                    jobPrice.push(ele.job_price);
-                }
-                if(jobExperience.indexOf(ele.job_experience_level) < 0 && ele.job_experience_level != null) {
-                    jobExperience.push(ele.job_experience_level);
-                }
-                if(jobLanguage.indexOf(ele.job_language) < 0 && ele.job_language != null) {
-                    jobLanguage.push(ele.job_language);
-                }
-                if(jobLocation.indexOf(ele.job_location) < 0 && ele.job_location != null) {
-                    jobLocation.push(ele.job_location);
-                }
-
             });
-            this.setState({jobSkills});
-            this.setState({jobAvailability});
-            this.setState({jobType});
-            this.setState({jobPrice});
-            this.setState({jobExperience});
-            this.setState({jobLanguage});
-            this.setState({jobLocation});
+            this.setState({
+                filterObject: newobject
+            });
         });
     }
     handleChange(method,value) {
-        const filteredJobs = this.state.filteredJobs;
-        this.state.jobs.map( (ele,key) => {
-            if(method == 'skills') {
-                let found = ele.job_skills.split(',').some(r=> value.indexOf(r) >= 0);
-                if(found && filteredJobs.indexOf(ele) < 0) {
-                    filteredJobs.push(ele);
-                }
-            }
-            if(method == 'availability') {
-                let found = value.indexOf(ele.job_availability) >= 0;
-                if(found && filteredJobs.indexOf(ele) < 0) {
-                    filteredJobs.push(ele);
-                }
-            }
-            if(method == 'type') {
-                let found = value.indexOf(ele.job_type) >= 0;
-                if(found && filteredJobs.indexOf(ele) < 0) {
-                    filteredJobs.push(ele);
-                }
-            }
-            if(method == 'rate') {
-                let found = value.indexOf(ele.job_price) >= 0;
-                if(found && filteredJobs.indexOf(ele) < 0) {
-                    filteredJobs.push(ele);
-                }
-            }
-            if(method == 'experience') {
-                let found = value == ele.job_experience_level;
-                if(found && filteredJobs.indexOf(ele) < 0) {
-                    filteredJobs.push(ele);
-                }
-            }
-            if(method == 'countries') {
-                let found = value.indexOf(ele.job_location) >= 0;
-                if(found && filteredJobs.indexOf(ele) < 0) {
-                    filteredJobs.push(ele);
-                }
-            }
-            if(method == 'language') {
-                let found = value.indexOf(ele.job_language) >= 0;
-                if(found && filteredJobs.indexOf(ele) < 0) {
-                    filteredJobs.push(ele);
+        let newobject=this.state.resultObject;
+        newobject[method] = value;
+        this.setState({
+            resultObject: newobject
+        });
+        let that = this;
+        let resultObject = that.state.jobs.filter(entry => {
+            for (var k in that.state.resultObject) {
+                if(that.state.resultObject[k] && typeof(that.state.resultObject[k]) == 'object') {
+                    if(k == 'job_skills') {
+                        if(entry[k].split(',').some(r=> that.state.resultObject[k].indexOf(r) >= 0)) {
+                            return true;
+                        }
+                    } else {
+                        console.log(that.state.resultObject[k]);
+                        if(that.state.resultObject[k] && that.state.resultObject[k].length > 0 && that.state.resultObject[k].indexOf(entry[k]) >=0) {
+                            return true
+                        }
+                    }
+
+                        
+                } else {
+                    if(that.state.resultObject[k] === entry[k]) {
+                        return true;
+                    }
                 }
             }
         });
         this.setState({
-            filteredJobs: filteredJobs
+            resultObject
         });
+        console.log(this.state.resultObject);
     }
 
     render() {
-        //console.log(this.state.filteredJobs);
-
         return (
             <Content style={{ padding: '0 50px' }}>
                 <Row gutter={16}>
                     <Col span={8}>
-                        <FilterComponent handleChange={this.handleChange} jobLanguage={this.state.jobLanguage} jobLocation={this.state.jobLocation} jobPrice={this.state.jobPrice} jobExperience={this.state.jobExperience} jobAvailability = {this.state.jobAvailability} jobType={this.state.jobType} jobSkills={this.state.jobSkills}/>
+                        <FilterComponent handleChange={this.handleChange} filterObject={this.state.filterObject} />
                     </Col>
                     <Col span={12}>
-                        <ResultComponent jobs={this.state.filteredJobs} />
+                        <ResultComponent jobs={this.state.resultObject} />
                     </Col>
                     <Col span={4}>
                         <SideBarComponent />

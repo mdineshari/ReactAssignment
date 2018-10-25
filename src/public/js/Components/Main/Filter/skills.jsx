@@ -10,8 +10,8 @@ class Skills extends React.Component {
         this.getJobSkills = this.getJobSkills.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    handleChange(method,value) {
-        this.props.handleChange(method,value);
+    handleChange(value) {
+        this.props.handleChange('job_skills',value);
     }
     getJobSkills() {
         var options=[];
@@ -32,7 +32,7 @@ class Skills extends React.Component {
                     mode="multiple"
                     style={{ width: '100%' }}
                     placeholder=""
-                    onChange={(e) => this.handleChange('skills', e)}
+                    onChange={this.handleChange}
                 >
                     {job_skills}
                 </Select>

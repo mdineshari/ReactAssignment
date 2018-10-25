@@ -14,13 +14,13 @@ class FilterComponent extends React.Component {
     render() {
         return (
             <div>
-                <Skills handleChange={this.props.handleChange} jobSkills={this.props.jobSkills}/>
-                <Availablity handleChange={this.props.handleChange}  jobAvailability={this.props.jobAvailability} />
-                <Type handleChange={this.props.handleChange}  jobType={this.props.jobType} />
-                <Rate handleChange={this.props.handleChange}  jobPrice={this.props.jobPrice} />
-                <Experience handleChange={this.props.handleChange}  jobExperience={this.props.jobExperience} />
-                <Countries handleChange={this.props.handleChange}  jobLocation={this.props.jobLocation} />
-                <Language handleChange={this.props.handleChange}  jobLanguage={this.props.jobLanguage} />
+                <Skills handleChange={this.props.handleChange} jobSkills={this.props.filterObject.job_skills}/>
+                <Availablity handleChange={this.props.handleChange}  jobAvailability={this.props.filterObject.job_availability} />
+                <Type handleChange={this.props.handleChange}  jobType={this.props.filterObject.job_type} />
+                <Rate handleChange={this.props.handleChange}  jobPrice={this.props.filterObject.job_price} />
+                <Experience handleChange={this.props.handleChange}  jobExperience={this.props.filterObject.job_experience_level} />
+                <Countries handleChange={this.props.handleChange}  jobLocation={this.props.filterObject.job_location} />
+                <Language handleChange={this.props.handleChange}  jobLanguage={this.props.filterObject.job_language} />
             </div>
         )
     }

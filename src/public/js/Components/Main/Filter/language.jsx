@@ -10,8 +10,8 @@ class Language extends React.Component {
         this.getJobLanguage = this.getJobLanguage.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    handleChange(method,value) {
-        this.props.handleChange(method,value);
+    handleChange(value) {
+        this.props.handleChange('job_language',value);
     }
     getJobLanguage() {
         var options=[];
@@ -32,7 +32,7 @@ class Language extends React.Component {
                     mode="multiple"
                     style={{ width: '100%' }}
                     placeholder=""
-                    onChange={(e) => this.handleChange('language', e)}
+                    onChange={this.handleChange}
                 >
                     {job_lang}
                 </Select>

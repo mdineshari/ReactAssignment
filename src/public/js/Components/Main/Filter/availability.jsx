@@ -13,7 +13,7 @@ class Availablity extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(checkedValues) {
-        this.props.handleChange('availability',checkedValues);
+        this.props.handleChange('job_availability',checkedValues);
       }
     render() {
         return (

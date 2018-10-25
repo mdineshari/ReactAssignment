@@ -8,8 +8,8 @@ class Type extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
-    handleChange(method,value) {
-        this.props.handleChange(method,value);
+    handleChange(value) {
+        this.props.handleChange('job_type',value);
     }
     getJobType() {
         var options=[];
@@ -33,7 +33,7 @@ class Type extends React.Component {
                     placeholder="Select a Job Type"
                     optionFilterProp="children"
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                    onChange={(e) => this.handleChange('type', e)}
+                    onChange={this.handleChange}
                 >
                     {job_types}
                 </Select> 
