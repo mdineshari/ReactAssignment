@@ -6,8 +6,7 @@ const connection = require('./src/db/connection.js');
 app.use(express.static('dist/public'));
 app.use(express.static('views'))
 
-
-
+const PORT = process.env.PORT || 3000;
 app.get('/', (req,res) => {
     res.sendFile('index.html');
 });
@@ -37,7 +36,7 @@ app.get('api/getResult', (req,res) => {
     console.log('test');
 })
 
-app.listen(3000, () => {
-    console.log('server is listening on port: 3000');
+app.listen(PORT, () => {
+    console.log('server is listening on port: ', PORT);
 });
 
