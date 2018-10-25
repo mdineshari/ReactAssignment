@@ -71,12 +71,50 @@ class MainComponent extends React.Component {
             this.setState({jobLocation});
         });
     }
-    handleChange(value) {
-        const filteredJobs = [];
+    handleChange(method,value) {
+        const filteredJobs = this.state.filteredJobs;
         this.state.jobs.map( (ele,key) => {
-            let found = ele.job_skills.split(',').some(r=> value.indexOf(r) >= 0);
-            if(found) {
-                filteredJobs.push(ele);
+            if(method == 'skills') {
+                let found = ele.job_skills.split(',').some(r=> value.indexOf(r) >= 0);
+                if(found && filteredJobs.indexOf(ele) < 0) {
+                    filteredJobs.push(ele);
+                }
+            }
+            if(method == 'availability') {
+                let found = value.indexOf(ele.job_availability) >= 0;
+                if(found && filteredJobs.indexOf(ele) < 0) {
+                    filteredJobs.push(ele);
+                }
+            }
+            if(method == 'type') {
+                let found = value.indexOf(ele.job_type) >= 0;
+                if(found && filteredJobs.indexOf(ele) < 0) {
+                    filteredJobs.push(ele);
+                }
+            }
+            if(method == 'rate') {
+                let found = value.indexOf(ele.job_price) >= 0;
+                if(found && filteredJobs.indexOf(ele) < 0) {
+                    filteredJobs.push(ele);
+                }
+            }
+            if(method == 'experience') {
+                let found = value == ele.job_experience_level;
+                if(found && filteredJobs.indexOf(ele) < 0) {
+                    filteredJobs.push(ele);
+                }
+            }
+            if(method == 'countries') {
+                let found = value.indexOf(ele.job_location) >= 0;
+                if(found && filteredJobs.indexOf(ele) < 0) {
+                    filteredJobs.push(ele);
+                }
+            }
+            if(method == 'language') {
+                let found = value.indexOf(ele.job_language) >= 0;
+                if(found && filteredJobs.indexOf(ele) < 0) {
+                    filteredJobs.push(ele);
+                }
             }
         });
         this.setState({
@@ -85,14 +123,16 @@ class MainComponent extends React.Component {
     }
 
     render() {
+        //console.log(this.state.filteredJobs);
+
         return (
             <Content style={{ padding: '0 50px' }}>
                 <Row gutter={16}>
                     <Col span={8}>
-                        <FilterComponent handleChange={this.handleChange} jobLanguage={this.state.jobLanguage} jobLocation={this.state.jobLocation} jobPrice={this.state.jobPrice} jobExperience={this.state.jobExperience} jobAvailability = {this.state.jobAvailability} jobType={this.state.jobType} jobSkills={this.state.jobSkills} filteredJobs={this.state.filteredJobs}/>
+                        <FilterComponent handleChange={this.handleChange} jobLanguage={this.state.jobLanguage} jobLocation={this.state.jobLocation} jobPrice={this.state.jobPrice} jobExperience={this.state.jobExperience} jobAvailability = {this.state.jobAvailability} jobType={this.state.jobType} jobSkills={this.state.jobSkills}/>
                     </Col>
                     <Col span={12}>
-                        <ResultComponent jobs={this.state.jobs} />
+                        <ResultComponent jobs={this.state.filteredJobs} />
                     </Col>
                     <Col span={4}>
                         <SideBarComponent />

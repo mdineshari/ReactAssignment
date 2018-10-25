@@ -7,6 +7,10 @@ class Experience extends React.Component {
     constructor(props) {
         super(props);
         this.getJobExperience = this.getJobExperience.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(method,value) {
+        this.props.handleChange(method,value);
     }
     getJobExperience() {
         var options=[];
@@ -30,6 +34,7 @@ class Experience extends React.Component {
                     placeholder="Select your Experience Level"
                     optionFilterProp="children"
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                    onChange={(e) => this.handleChange('experience', e)}
                 >
                     {job_experience}
                 </Select> 

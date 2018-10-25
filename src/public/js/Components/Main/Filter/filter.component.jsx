@@ -15,12 +15,12 @@ class FilterComponent extends React.Component {
         return (
             <div>
                 <Skills handleChange={this.props.handleChange} jobSkills={this.props.jobSkills}/>
-                <Availablity jobAvailability={this.props.jobAvailability} />
-                <Type jobType={this.props.jobType} />
-                <Rate jobPrice={this.props.jobPrice} />
-                <Experience jobExperience={this.props.jobExperience} />
-                <Countries jobLocation={this.props.jobLocation} />
-                <Language jobLanguage={this.props.jobLanguage} />
+                <Availablity handleChange={this.props.handleChange}  jobAvailability={this.props.jobAvailability} />
+                <Type handleChange={this.props.handleChange}  jobType={this.props.jobType} />
+                <Rate handleChange={this.props.handleChange}  jobPrice={this.props.jobPrice} />
+                <Experience handleChange={this.props.handleChange}  jobExperience={this.props.jobExperience} />
+                <Countries handleChange={this.props.handleChange}  jobLocation={this.props.jobLocation} />
+                <Language handleChange={this.props.handleChange}  jobLanguage={this.props.jobLanguage} />
             </div>
         )
     }

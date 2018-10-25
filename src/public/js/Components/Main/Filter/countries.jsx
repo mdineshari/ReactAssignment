@@ -8,7 +8,10 @@ class Countries extends React.Component {
     constructor(props) {
         super(props);
         this.getJobCountries = this.getJobCountries.bind(this);
-
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(method,value) {
+        this.props.handleChange(method,value);
     }
     getJobCountries() {
         var options=[];
@@ -29,7 +32,7 @@ class Countries extends React.Component {
                     mode="multiple"
                     style={{ width: '100%' }}
                     placeholder=""
-                    onChange={this.handleChange}
+                    onChange={(e) => this.handleChange('countries', e)}
                 >
                     {job_countries}
                 </Select>
