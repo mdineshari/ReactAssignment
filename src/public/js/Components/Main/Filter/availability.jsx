@@ -33,7 +33,7 @@ class Availablity extends React.Component {
     }
     render() {
         return (
-            <Card title="Availability" extra={<span onClick={this.onCheckAllChange}>Clear</span>} style={{ width: 300 }} >
+            <Card className="filterComponent" title="Availability" extra={<span onClick={this.onCheckAllChange}>Clear</span>} style={{ width: 300 }} >
                     <CheckboxGroup className='checkBoxGroup' options={plainOptions} value={this.state.checkedList} onChange={this.handleChange} />
             </Card>
         )

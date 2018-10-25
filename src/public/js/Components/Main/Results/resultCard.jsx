@@ -15,7 +15,7 @@ class ResultCard extends React.Component {
                     Skills.push(<Tag key={k}>{e}</Tag>);                
                 });
                 let job = (
-                    <Card key={key}>
+                    <Card className="result_card" bordered={false} key={key}>
                         <Row gutter={64}>
                             <Col span={16}>
                                 <h4>{ele.job_title} &nbsp; <Tag className={ele.job_availability}>{ele.job_availability}</Tag></h4>

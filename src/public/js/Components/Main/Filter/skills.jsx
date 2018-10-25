@@ -37,6 +37,7 @@ class Skills extends React.Component {
         const job_skills = this.getJobSkills();
         return (
             <Card
+                className="filterComponent"
                 title="Skills"
                 extra={<span onClick={this.clearAll}>Clear</span>}
                 style={{ width: 300 }}

@@ -35,6 +35,7 @@ class Type extends React.Component {
         const job_types = this.getJobType();
         return (
             <Card
+                className="filterComponent"
                 title="Job type"
                 extra={<span onClick={this.clearAll}>Clear</span>}
                 style={{ width: 300 }}

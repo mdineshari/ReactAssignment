@@ -36,7 +36,7 @@ class Experience extends React.Component {
         const job_experience = this.getJobExperience();
 
         return (
-            <Card title="Experience Level" extra={<p onClick={this.clearAll}>Clear</p>} style={{ width: 300 }} >
+            <Card className="filterComponent" title="Experience Level" extra={<p onClick={this.clearAll}>Clear</p>} style={{ width: 300 }} >
                 <Select
                     showSearch
                     style={{ width: 200 }}

@@ -57,6 +57,7 @@ class Rate extends React.Component {
         const { inputValue } = this.state;
         return (
             <Card
+                className="filterComponent"
                 title="Pay rate/hr ($)"
                 extra={<p onClick={this.clearAll}>Clear</p>}
                 style={{ width: 300 }}

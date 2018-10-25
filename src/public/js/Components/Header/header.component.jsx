@@ -4,12 +4,11 @@ import {Layout} from 'antd';
 const Header = Layout.Header;
 import './header.less';
 
-
 class HeaderComponent extends React.Component {
     render() {
         return (
-            <Header>
-                <div className="logo" />
+            <Header className="header-container">
+                <div className="logo"></div>
                 <MenuBar />
             </Header>
         )

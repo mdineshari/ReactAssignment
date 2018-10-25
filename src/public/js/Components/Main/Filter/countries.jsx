@@ -35,7 +35,7 @@ class Countries extends React.Component {
     render() {
         const job_countries = this.getJobCountries();
         return (
-            <Card title="Countries" extra={<p onClick={this.clearAll}>Clear</p>} style={{ width: 300 }} >
+            <Card className="filterComponent" title="Countries" extra={<p onClick={this.clearAll}>Clear</p>} style={{ width: 300 }} >
                 <Select mode="multiple" style={{ width: '100%' }} placeholder="" onChange={this.handleChange} value={this.state.value}>
                     {job_countries}
                 </Select>

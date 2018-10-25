@@ -37,6 +37,7 @@ class Language extends React.Component {
         const job_lang = this.getJobLanguage();
         return (
             <Card
+                className="filterComponent"
                 title="Languages"
                 extra={<p onClick={this.clearAll}>Clear</p>}
                 style={{ width: 300 }}
