@@ -10,7 +10,6 @@ class ResultComponent extends React.Component {
         super(props);
     }
     render() {
-        console.log(this.props.jobs);
         return(
             <div className="results_title">
                 <Row gutter={48}>
@@ -31,7 +30,6 @@ class ResultComponent extends React.Component {
                 <br/><br/>
                 <ResultCard jobs = {this.props.jobs} />
                 <Pagination defaultCurrent={1} total={10} />,
-
             </div>
         )
     }

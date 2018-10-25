@@ -9,12 +9,25 @@ class Language extends React.Component {
         super(props);
         this.getJobLanguage = this.getJobLanguage.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.clearAll = this.clearAll.bind(this);
+        this.state = {
+            value:[]
+        };
+    }
+    clearAll() {
+        this.setState({
+            value:[]
+        });
+        this.props.handleChange('job_language',[]);
     }
     handleChange(value) {
+        this.setState({
+            value
+        });
         this.props.handleChange('job_language',value);
     }
     getJobLanguage() {
-        var options=[];
+        let options=[];
         this.props.jobLanguage.forEach( (ele,key) => {
             options.push(<Option value={ele} key={key}>{ele}</Option>);
         });
@@ -25,7 +38,7 @@ class Language extends React.Component {
         return (
             <Card
                 title="Languages"
-                extra={<a href="#">Clear</a>}
+                extra={<p onClick={this.clearAll}>Clear</p>}
                 style={{ width: 300 }}
             >
                 <Select
@@ -33,6 +46,7 @@ class Language extends React.Component {
                     style={{ width: '100%' }}
                     placeholder=""
                     onChange={this.handleChange}
+                    value={this.state.value}
                 >
                     {job_lang}
                 </Select>

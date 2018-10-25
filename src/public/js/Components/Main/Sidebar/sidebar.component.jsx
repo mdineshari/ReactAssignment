@@ -6,26 +6,19 @@ class SideBarComponent extends React.Component {
     render() {
         return(
             <div>
-                <Card
-                    title=""
-                    style={{ width: 300 }}
-                >
+                <Card title="" style={{ width: 300 }} >
                     <div className="logoImageContainer">
                         <img src="" />
                     </div>
-                        <p>Track Time on Hubstaff</p>
-                        <p>Pay only for the hours worked</p>
-
-                        <Button type="primary">Sign Up</Button>
-                        <Anchor affix={false}>
-                            <Link href="#components-anchor-demo-basic" title="Learn More" />
-                        </Anchor>
+                    <p>Track Time on Hubstaff</p>
+                    <p>Pay only for the hours worked</p>
+                    <Button type="primary">Sign Up</Button>
+                    <Anchor affix={false}>
+                        <Link href="#components-anchor-demo-basic" title="Learn More" />
+                    </Anchor>
                 </Card>
 
-                <Card
-                    title="TOP JOBS"
-                    style={{ width: 300 }}
-                >
+                <Card title="TOP JOBS" style={{ width: 300 }} >
                     <Row gutter={16}>
                         <Col span={18}>
                             <h3>Senior Ruby on Rails Engineer</h3>
@@ -54,10 +47,7 @@ class SideBarComponent extends React.Component {
                     </Row>
                 </Card>
 
-                <Card
-                    title="MOST VIEWED THIS WEEK"
-                    style={{ width: 300 }}
-                >
+                <Card title="MOST VIEWED THIS WEEK" style={{ width: 300 }} >
                     <Row gutter={16}>
                         <Col span={18}>
                             <h3>Senior Ruby on Rails Engineer</h3>

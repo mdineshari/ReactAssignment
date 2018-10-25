@@ -7,14 +7,14 @@ class ResultCard extends React.Component {
         this.getJobStructure = this.getJobStructure.bind(this);    
     }
     getJobStructure() {
-        var jobs = [];
+        let jobs = [];
         if(this.props.jobs.length > 0 ){
             this.props.jobs.forEach( (ele,key) => {
-                var Skills = [];
+                let Skills = [];
                 ele.job_skills.split(',').forEach((e,k) => {
                     Skills.push(<Tag key={k}>{e}</Tag>);                
                 });
-                var job = (
+                let job = (
                     <Card key={key}>
                         <Row gutter={64}>
                             <Col span={16}>
@@ -46,7 +46,7 @@ class ResultCard extends React.Component {
         return jobs;
     }
     render() {
-        var all_jobs = this.getJobStructure();
+        const all_jobs = this.getJobStructure();
         return(
             <div>{all_jobs}</div>
         )

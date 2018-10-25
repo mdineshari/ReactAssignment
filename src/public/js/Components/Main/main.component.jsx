@@ -2,11 +2,10 @@ import React from 'react';
 import FilterComponent from './Filter/filter.component.jsx';
 import ResultComponent from './Results/results.component.jsx';
 import SideBarComponent from './Sidebar/sidebar.component.jsx';
+import axios from 'axios';
+import './main.less';
 import {Layout, Row, Col} from 'antd';
 const Content = Layout.Content;
-import axios from 'axios';
-
-import './main.less';
 
 class MainComponent extends React.Component {
     constructor(props) {
@@ -41,8 +40,11 @@ class MainComponent extends React.Component {
             this.setState({
                 jobs: res.data
             });
-            res.data.map( (ele,key) => {
-                for(var key in ele) {
+            this.setState({
+                filteredJobs: res.data
+            });
+            res.data.map( (ele) => {
+                for(let key in ele) {
                     if(key=='job_skills') {
                         ele[key].split(',').map( (e,k) => {
                             if(newobject[key] && newobject[key].indexOf(e) < 0) {
@@ -69,20 +71,25 @@ class MainComponent extends React.Component {
         });
         let that = this;
         let resultObject = that.state.jobs.filter(entry => {
-            for (var k in that.state.resultObject) {
+            for (let k in that.state.resultObject) {
                 if(that.state.resultObject[k] && typeof(that.state.resultObject[k]) == 'object') {
                     if(k == 'job_skills') {
                         if(entry[k].split(',').some(r=> that.state.resultObject[k].indexOf(r) >= 0)) {
                             return true;
                         }
+                    } else if(k == 'job_price') {
+                        if(that.state.resultObject[k][0] == true && parseInt(entry[k]) == 0) {
+                            return true;
+                        } else if(parseInt(entry[k]) == 0 && parseInt(that.state.resultObject[k][0]) == 0) {
+                            return true;
+                        } else if(parseInt(entry[k]) != 0 && parseInt(that.state.resultObject[k][0]) <= parseInt(entry[k]) && parseInt(that.state.resultObject[k][1]) >= parseInt(entry[k])) {
+                            return true;
+                        }
                     } else {
-                        console.log(that.state.resultObject[k]);
                         if(that.state.resultObject[k] && that.state.resultObject[k].length > 0 && that.state.resultObject[k].indexOf(entry[k]) >=0) {
-                            return true
+                            return true;
                         }
                     }
-
-                        
                 } else {
                     if(that.state.resultObject[k] === entry[k]) {
                         return true;
@@ -90,10 +97,10 @@ class MainComponent extends React.Component {
                 }
             }
         });
+        resultObject = resultObject.length === 0 ? this.state.jobs : resultObject;
         this.setState({
-            resultObject
+            filteredJobs: resultObject
         });
-        console.log(this.state.resultObject);
     }
 
     render() {
@@ -104,14 +111,13 @@ class MainComponent extends React.Component {
                         <FilterComponent handleChange={this.handleChange} filterObject={this.state.filterObject} />
                     </Col>
                     <Col span={12}>
-                        <ResultComponent jobs={this.state.resultObject} />
+                        <ResultComponent jobs={this.state.filteredJobs} />
                     </Col>
                     <Col span={4}>
                         <SideBarComponent />
                     </Col>
                 </Row>
             </Content>
-
         )
     }
 }

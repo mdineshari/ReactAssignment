@@ -9,14 +9,27 @@ class Skills extends React.Component {
         super(props);
         this.getJobSkills = this.getJobSkills.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.clearAll = this.clearAll.bind(this);
+        this.state = {
+            value:[]
+        };
+    }
+    clearAll() {
+        this.setState({
+            value:[]
+        });
+        this.props.handleChange('job_skills',[]);
     }
     handleChange(value) {
+        this.setState({
+            value
+        });
         this.props.handleChange('job_skills',value);
     }
     getJobSkills() {
-        var options=[];
+        let options=[];
         this.props.jobSkills.forEach( (ele,key) => {
-            options.push(<Option value={ele} key={key}>{ele}</Option>);
+            options.push(<Option value={ele} ref={ele} key={key}>{ele}</Option>);
         });
         return options;
     }
@@ -25,7 +38,7 @@ class Skills extends React.Component {
         return (
             <Card
                 title="Skills"
-                extra={<a href="#">Clear</a>}
+                extra={<span onClick={this.clearAll}>Clear</span>}
                 style={{ width: 300 }}
             >
                 <Select
@@ -33,6 +46,8 @@ class Skills extends React.Component {
                     style={{ width: '100%' }}
                     placeholder=""
                     onChange={this.handleChange}
+                    allowClear={true}
+                    value={this.state.value}
                 >
                     {job_skills}
                 </Select>

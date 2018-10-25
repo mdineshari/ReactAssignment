@@ -6,30 +6,65 @@ class Rate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue: 1
+            inputValue: [0,100]
         }
         this.onChange = this.onChange.bind(this);
+        this.onMaxChange = this.onMaxChange.bind(this);
+        this.onMinChange = this.onMinChange.bind(this);
         this.checkBoxHandler = this.checkBoxHandler.bind(this);
+        this.clearAll = this.clearAll.bind(this);
     }
-    checkBoxHandler(e) {
-        console.log(`checked = ${e.target.checked}`);
+    onMinChange(value) {
+        const currentValue = this.state.inputValue;
+        currentValue[0] = value?value:0;
+        this.setState({
+            inputValue: currentValue
+        });
+    }
+    onMaxChange(value) {
+        const currentValue = this.state.inputValue;
+        currentValue[1] = value?value:0;
+        this.setState({
+            inputValue: currentValue,
+            checked: false
+        });
     }
     onChange(value) {
         this.setState({
-          inputValue: value,
+          inputValue: value
+        });
+        this.props.handleChange('job_price',value);
+    }
+    clearAll() {
+        this.setState({
+            inputValue:[0,100],
+            checked: false
+        });
+        this.props.handleChange('job_price',[0,100]);
+    }
+    checkBoxHandler(e) {
+        if(e.target.checked) {
+            this.props.handleChange('job_price',[true,true]);
+        } else {
+            this.props.handleChange('job_price',this.state.inputValue);
+        }
+        this.setState({
+            checked: e.target.checked
         });
     }
+
     render() {
         const { inputValue } = this.state;
         return (
             <Card
                 title="Pay rate/hr ($)"
-                extra={<a href="#">Clear</a>}
+                extra={<p onClick={this.clearAll}>Clear</p>}
                 style={{ width: 300 }}
             >
-            <InputNumber min={1} max={20} style={{ marginLeft: 16 }} value={inputValue} onChange={this.onChange} />
-                <Slider min={1} max={20} onChange={this.onChange} value={typeof inputValue === 'number' ? inputValue : 0} />
-                <Checkbox onChange={this.checkBoxHandler}>Include Profile without rate</Checkbox>
+            <InputNumber style={{ marginLeft: 16 }} value={inputValue[0]} onChange={this.onMinChange} />
+            <InputNumber style={{ marginLeft: 16 }} value={inputValue[1]} onChange={this.onMaxChange} />
+                <Slider range onChange={this.onChange} value = {inputValue} />
+                <Checkbox onChange={this.checkBoxHandler} checked={this.state.checked}>Include Profile without rate</Checkbox>
             </Card>
         )
     }

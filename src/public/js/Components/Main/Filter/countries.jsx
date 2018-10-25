@@ -1,7 +1,6 @@
 import React from 'react';
 import {Card,Select} from 'antd';
 
-
 const Option = Select.Option;
 
 class Countries extends React.Component {
@@ -9,12 +8,25 @@ class Countries extends React.Component {
         super(props);
         this.getJobCountries = this.getJobCountries.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.clearAll = this.clearAll.bind(this);
+        this.state = {
+            value:[]
+        };
+    }
+    clearAll() {
+        this.setState({
+            value:[]
+        });
+        this.props.handleChange('job_location',[]);
     }
     handleChange(value) {
+        this.setState({
+            value
+        });
         this.props.handleChange('job_location',value);
     }
     getJobCountries() {
-        var options=[];
+        let options=[];
         this.props.jobLocation.forEach( (ele,key) => {
             options.push(<Option value={ele} key={key}>{ele}</Option>);
         });
@@ -23,20 +35,12 @@ class Countries extends React.Component {
     render() {
         const job_countries = this.getJobCountries();
         return (
-            <Card
-                title="Countries"
-                extra={<a href="#">Clear</a>}
-                style={{ width: 300 }}
-            >
-                <Select
-                    mode="multiple"
-                    style={{ width: '100%' }}
-                    placeholder=""
-                    onChange={this.handleChange}
-                >
+            <Card title="Countries" extra={<p onClick={this.clearAll}>Clear</p>} style={{ width: 300 }} >
+                <Select mode="multiple" style={{ width: '100%' }} placeholder="" onChange={this.handleChange} value={this.state.value}>
                     {job_countries}
                 </Select>
-            </Card>        )
+            </Card>        
+        )
     }
 }
 
