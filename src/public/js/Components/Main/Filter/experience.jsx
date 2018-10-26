@@ -36,15 +36,15 @@ class Experience extends React.Component {
         const job_experience = this.getJobExperience();
 
         return (
-            <Card className="filterComponent" title="Experience Level" extra={<p onClick={this.clearAll}>Clear</p>} style={{ width: 300 }} >
+            <Card className="filterComponent" title="Experience Level" extra={<p onClick={this.clearAll}>Clear</p>} >
                 <Select
                     showSearch
-                    style={{ width: 200 }}
                     placeholder="Select your Experience Level"
                     optionFilterProp="children"
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     onChange={this.handleChange}
-                    value={this.state.value}
+                    value={this.props.clearAll?[]:this.state.value}
+                    style={{ width: '100%' }}
                 >
                     {job_experience}
                 </Select> 

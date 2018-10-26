@@ -38,16 +38,15 @@ class Type extends React.Component {
                 className="filterComponent"
                 title="Job type"
                 extra={<span onClick={this.clearAll}>Clear</span>}
-                style={{ width: 300 }}
             >
                 <Select
                     showSearch
-                    style={{ width: 200 }}
                     placeholder="Select a Job Type"
                     optionFilterProp="children"
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     onChange={this.handleChange}
-                    value={this.state.value}
+                    value={this.props.clearAll?[]:this.state.value}
+                    style={{ width: '100%' }}
                 >
                     {job_types}
                 </Select> 

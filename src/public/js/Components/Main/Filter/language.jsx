@@ -40,14 +40,13 @@ class Language extends React.Component {
                 className="filterComponent"
                 title="Languages"
                 extra={<p onClick={this.clearAll}>Clear</p>}
-                style={{ width: 300 }}
             >
                 <Select
                     mode="multiple"
                     style={{ width: '100%' }}
                     placeholder=""
                     onChange={this.handleChange}
-                    value={this.state.value}
+                    value={this.props.clearAll?[]:this.state.value}
                 >
                     {job_lang}
                 </Select>
