@@ -1,54 +1,46 @@
 import React from 'react';
-import {Card, Row, Col, Tag} from 'antd';
+import {List,Tag} from 'antd';
 
 class ResultCard extends React.Component {
     constructor(props) {
         super(props);
-        this.getJobStructure = this.getJobStructure.bind(this);    
+        this.getSkills = this.getSkills.bind(this);
     }
-    getJobStructure() {
-        let jobs = [];
-        if(this.props.jobs.length > 0 ){
-            this.props.jobs.forEach( (ele,key) => {
-                let Skills = [];
-                ele.job_skills.split(',').forEach((e,k) => {
-                    Skills.push(<Tag key={k}>{e}</Tag>);                
-                });
-                let job = (
-                    <Card className="result_card" bordered={false} key={key}>
-                        <Row gutter={64}>
-                            <Col span={16}>
-                                <h4>{ele.job_title} &nbsp; <Tag className={ele.job_availability}>{ele.job_availability}</Tag></h4>
-                            </Col>
-                            <Col span={4}>
-                            </Col>
-                            <Col span={4}>
-                                <b>${ele.job_price} /hr</b>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                <p><span className="result_coder">Epic Coders</span> &nbsp; <span className="result_location">{ele.job_location}</span><br/>
-                                <span className="result_rate">Reply Rate: <b>{ele.job_replyRate}%</b></span></p>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}></Col>
-                        </Row>
-                        <Row>
-                            <Col span={24} className="result_description">{ele.job_description}<br/><br/>{Skills}</Col>
-                        </Row>
-                    </Card>
-                )
-                jobs.push(job)
-            });  
-        }   
-        return jobs;
+    getSkills(skill) {
+        let Skills = [];
+        skill.split(',').forEach((e,k) => {
+            Skills.push(<Tag className="result_skills" key={k}>{e}</Tag>);                
+        });
+        return Skills;
     }
     render() {
-        const all_jobs = this.getJobStructure();
         return(
-            <div>{all_jobs}</div>
+            <div>
+                <List
+                    className="resultList"
+                    itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                    onChange: (page) => {
+                        console.log(page);
+                    },
+                    pageSize: 5,
+                    }}
+                    dataSource={this.props.jobs.length===0?[]:this.props.jobs}
+                    renderItem={item => (
+                    <List.Item
+                        key={item.job_title}
+                    >
+                        <List.Item.Meta
+                        title={<span>{item.job_title} &nbsp; <Tag className={item.job_availability}>{item.job_availability}</Tag><span className="price_right"><b>${item.job_price} /hr</b></span></span>}
+                        description={<p><span className="result_coder">Epic Coders</span> &nbsp; <span className="result_location">{item.job_location}</span><br/>
+                        <span className="result_rate">Reply Rate: <b>{item.job_replyRate}%</b></span></p>}
+                        />
+                        
+                        {item.job_description}<br/><br/>{this.getSkills(item.job_skills)}
+                    </List.Item>)} 
+                />
+            </div>
         )
     }
 }

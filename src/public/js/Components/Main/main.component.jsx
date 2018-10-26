@@ -30,7 +30,8 @@ class MainComponent extends React.Component {
                 job_location: [],
                 job_language: [],
                 job_price: null
-            }
+            },
+            clearAll: false
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -70,33 +71,43 @@ class MainComponent extends React.Component {
             resultObject: newobject
         });
         let that = this;
-        let resultObject = that.state.jobs.filter(entry => {
-            for (let k in that.state.resultObject) {
-                if(that.state.resultObject[k] && typeof(that.state.resultObject[k]) == 'object') {
-                    if(k == 'job_skills') {
-                        if(entry[k].split(',').some(r=> that.state.resultObject[k].indexOf(r) >= 0)) {
-                            return true;
-                        }
-                    } else if(k == 'job_price') {
-                        if(that.state.resultObject[k][0] == true && parseInt(entry[k]) == 0) {
-                            return true;
-                        } else if(parseInt(entry[k]) == 0 && parseInt(that.state.resultObject[k][0]) == 0) {
-                            return true;
-                        } else if(parseInt(entry[k]) != 0 && parseInt(that.state.resultObject[k][0]) <= parseInt(entry[k]) && parseInt(that.state.resultObject[k][1]) >= parseInt(entry[k])) {
-                            return true;
+        let resultObject = [];
+        if(method !== 'clearedAllFiltered') {
+            resultObject = that.state.jobs.filter(entry => {
+                for (let k in that.state.resultObject) {
+                    if(that.state.resultObject[k] && typeof(that.state.resultObject[k]) == 'object') {
+                        if(k == 'job_skills') {
+                            if(entry[k].split(',').some(r=> that.state.resultObject[k].indexOf(r) >= 0)) {
+                                return true;
+                            }
+                        } else if(k == 'job_price') {
+                            if(that.state.resultObject[k][0] == true && parseInt(entry[k]) == 0) {
+                                return true;
+                            } else if(parseInt(entry[k]) == 0 && parseInt(that.state.resultObject[k][0]) == 0) {
+                                return true;
+                            } else if(parseInt(entry[k]) != 0 && parseInt(that.state.resultObject[k][0]) <= parseInt(entry[k]) && parseInt(that.state.resultObject[k][1]) >= parseInt(entry[k])) {
+                                return true;
+                            }
+                        } else {
+                            if(that.state.resultObject[k] && that.state.resultObject[k].length > 0 && that.state.resultObject[k].indexOf(entry[k]) >=0) {
+                                return true;
+                            }
                         }
                     } else {
-                        if(that.state.resultObject[k] && that.state.resultObject[k].length > 0 && that.state.resultObject[k].indexOf(entry[k]) >=0) {
+                        if(that.state.resultObject[k] === entry[k]) {
                             return true;
                         }
                     }
-                } else {
-                    if(that.state.resultObject[k] === entry[k]) {
-                        return true;
-                    }
                 }
-            }
-        });
+            });
+            this.setState({
+                clearAll: false
+            });
+        } else {
+            this.setState({
+                clearAll: true
+            });
+        }
         resultObject = resultObject.length === 0 ? this.state.jobs : resultObject;
         this.setState({
             filteredJobs: resultObject
@@ -108,9 +119,9 @@ class MainComponent extends React.Component {
             <Content style={{ padding: '0 50px' }}>
                 <Row gutter={16}>
                     <Col span={8}>
-                        <FilterComponent handleChange={this.handleChange} filterObject={this.state.filterObject} />
+                        <FilterComponent clearAll={this.state.clearAll} handleChange={this.handleChange} filterObject={this.state.filterObject} />
                     </Col>
-                    <Col span={12}>
+                    <Col span={10}>
                         <ResultComponent jobs={this.state.filteredJobs} />
                     </Col>
                     <Col span={4}>

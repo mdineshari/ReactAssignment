@@ -60,11 +60,10 @@ class Rate extends React.Component {
                 className="filterComponent"
                 title="Pay rate/hr ($)"
                 extra={<p onClick={this.clearAll}>Clear</p>}
-                style={{ width: 300 }}
             >
             <InputNumber style={{ marginLeft: 16 }} value={inputValue[0]} onChange={this.onMinChange} />
             <InputNumber style={{ marginLeft: 16 }} value={inputValue[1]} onChange={this.onMaxChange} />
-                <Slider range onChange={this.onChange} value = {inputValue} />
+                <Slider range onChange={this.onChange} value = {this.props.clearAll?[0,100]:inputValue} />
                 <Checkbox onChange={this.checkBoxHandler} checked={this.state.checked}>Include Profile without rate</Checkbox>
             </Card>
         )

@@ -14,25 +14,20 @@ class ResultComponent extends React.Component {
             <div>
                 <div className="results_title">
                     <Row gutter={48}>
-                        <Col span={8}>
-                            <h4 className="resultHeader">Results ({this.props.jobs.length})</h4>
-                        </Col>
-                        <Col span={4}>
-                        </Col>
-                        <Col span={12} className="sortBy">
-                            <span>Sort by &nbsp; 
-                                <Select style={{ width: 100 }} optionFilterProp="children" filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
-                                    <Option value='Relevance'>Relevance</Option>
-                                    <Option value='Price'>Price</Option>
-                                </Select> 
-                            </span>
-                        </Col>
+                    <div className="result_right_title">
+                        <h4 className="resultHeader">RESULTS ({this.props.jobs.length})</h4>
+                    </div>
+                    <div className="result_left_title">
+                            Sort by &nbsp; 
+                            <Select style={{ width: 100 }} optionFilterProp="children" filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+                                <Option value='Relevance'>Relevance</Option>
+                                <Option value='Price'>Price</Option>
+                            </Select> 
+                    </div>
                     </Row>
                     <br/><br/>
                     <ResultCard jobs = {this.props.jobs} />
                 </div>
-                <br/><br/>
-                <Pagination defaultCurrent={1} total={5} size="small"  />,
             </div>
         )
     }

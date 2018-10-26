@@ -40,7 +40,6 @@ class Skills extends React.Component {
                 className="filterComponent"
                 title="Skills"
                 extra={<span onClick={this.clearAll}>Clear</span>}
-                style={{ width: 300 }}
             >
                 <Select
                     mode="multiple"
@@ -48,7 +47,7 @@ class Skills extends React.Component {
                     placeholder=""
                     onChange={this.handleChange}
                     allowClear={true}
-                    value={this.state.value}
+                    value={this.props.clearAll?[]:this.state.value}
                 >
                     {job_skills}
                 </Select>
