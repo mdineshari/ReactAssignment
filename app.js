@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 var app = express();
@@ -12,7 +13,7 @@ app.get('/', (req,res) => {
 });
 
 app.get('/api/getJobSkills', (req,res) => {
-    connection.query('SELECT * FROM `react_assignment`.`job_details`;', function (error, results, fields) {
+    connection.query('SELECT * FROM `heroku_22f0d7c86999ffa`.`job_details`;', function (error, results, fields) {
         if (error)
             throw error;
         var skills = [];
