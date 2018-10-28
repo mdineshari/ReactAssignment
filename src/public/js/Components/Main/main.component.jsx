@@ -77,7 +77,7 @@ class MainComponent extends React.Component {
                 for (let k in that.state.resultObject) {
                     if(that.state.resultObject[k] && typeof(that.state.resultObject[k]) == 'object') {
                         if(k == 'job_skills') {
-                            if(entry[k].split(',').some(r=> that.state.resultObject[k].indexOf(r) >= 0)) {
+                            if(entry[k] && entry[k].split(',').some(r=> that.state.resultObject[k].indexOf(r) >= 0)) {
                                 return true;
                             }
                         } else if(k == 'job_price') {
@@ -89,17 +89,18 @@ class MainComponent extends React.Component {
                                 return true;
                             }
                         } else {
-                            if(that.state.resultObject[k] && that.state.resultObject[k].length > 0 && that.state.resultObject[k].indexOf(entry[k]) >=0) {
+                            if(entry[k] && that.state.resultObject[k] && that.state.resultObject[k].length > 0 && that.state.resultObject[k].some(r=> r == entry[k])) {
                                 return true;
                             }
                         }
                     } else {
-                        if(that.state.resultObject[k] === entry[k]) {
+                        if(entry[k] && that.state.resultObject[k] === entry[k]) {
                             return true;
                         }
                     }
                 }
             });
+            console.log(resultObject);
             this.setState({
                 clearAll: false
             });
