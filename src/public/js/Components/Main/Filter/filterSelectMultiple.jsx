@@ -6,7 +6,7 @@ const Option = Select.Option;
 class Countries extends React.Component {
     constructor(props) {
         super(props);
-        this.getJobCountries = this.getJobCountries.bind(this);
+        this.getJobData = this.getJobData.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.clearAll = this.clearAll.bind(this);
         this.state = {
@@ -17,27 +17,34 @@ class Countries extends React.Component {
         this.setState({
             value:[]
         });
-        this.props.handleChange('job_location',[]);
+        this.props.handleChange(this.props.mdethod,[]);
     }
     handleChange(value) {
         this.setState({
             value
         });
-        this.props.handleChange('job_location',value);
+        this.props.handleChange(this.props.mdethod,value);
     }
-    getJobCountries() {
+    getJobData() {
         let options=[];
-        this.props.jobLocation.forEach( (ele,key) => {
+        this.props.filterObject[this.props.method].forEach( (ele,key) => {
             options.push(<Option value={ele} key={key}>{ele}</Option>);
         });
         return options;
     }
     render() {
-        const job_countries = this.getJobCountries();
+        const job_data = this.getJobData();
         return (
-            <Card className="filterComponent" title="Countries" extra={<p onClick={this.clearAll}>Clear</p>} >
-                <Select mode="multiple" style={{ width: '100%' }} placeholder="" onChange={this.handleChange} value={this.props.clearAll?[]:this.state.value}>
-                    {job_countries}
+            <Card 
+            className="filterComponent" 
+            title={this.props.cardTitle} 
+            extra={<p onClick={this.clearAll}>Clear</p>} >
+                <Select 
+                mode={this.props.mode} 
+                style={{ width: '100%' }} 
+                onChange={this.handleChange} 
+                value={this.props.clearAll?[]:this.state.value}>
+                    {job_data}
                 </Select>
             </Card>        
         )

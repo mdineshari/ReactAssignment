@@ -94,13 +94,13 @@ class MainComponent extends React.Component {
                             }
                         }
                     } else {
+                        console.log(entry[k], k, that.state.resultObject);
                         if(entry[k] && that.state.resultObject[k] === entry[k]) {
                             return true;
                         }
                     }
                 }
             });
-            console.log(resultObject);
             this.setState({
                 clearAll: false
             });
