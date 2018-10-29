@@ -61,7 +61,6 @@ class Rate extends React.Component {
             >
             <InputNumber style={{ marginLeft: 16 }} value={inputValue[0]} onChange={this.onMinChange} />
             <InputNumber style={{ marginLeft: 16 }} value={inputValue[1]} onChange={this.onMaxChange} />
-            {inputValue}
             <Slider range onChange={this.onChange} value = {this.props.clearAll?[0,100]:inputValue} />
             <Checkbox onChange={this.checkBoxHandler} checked={this.state.checked}>Include Profile without rate</Checkbox>
             </Card>
