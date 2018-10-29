@@ -29,7 +29,7 @@ app.get('/api/getJobSkills', (req,res) => {
         res.send(results);
     });
     
-    connection.end();
+    //connection.end();
     
 });
 
