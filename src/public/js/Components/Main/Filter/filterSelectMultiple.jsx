@@ -43,6 +43,7 @@ class Countries extends React.Component {
                 mode={this.props.mode} 
                 style={{ width: '100%' }} 
                 onChange={this.handleChange} 
+                allowClear={true}
                 value={this.props.clearAll?[]:this.state.value}>
                     {job_data}
                 </Select>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Skills from './skills.jsx';
 import Availablity from './availability.jsx';
 import Rate from './payrate.jsx';
 import FilterHeader from './filterHeader.jsx';
@@ -14,7 +13,7 @@ class FilterComponent extends React.Component {
         return (
             <div>
                 <FilterHeader handleChange={this.props.handleChange}/>
-                <Skills handleChange={this.props.handleChange} jobSkills={this.props.filterObject.job_skills} clearAll={this.props.clearAll}/>
+                <FilterSelectMultiple handleChange={this.props.handleChange} filterObject={this.props.filterObject} method='job_skills' clearAll={this.props.clearAll} cardTitle="Skills" mode='multiple' />
                 <Availablity handleChange={this.props.handleChange}  jobAvailability={this.props.filterObject.job_availability} clearAll={this.props.clearAll} />
                 <FilterSelectSearch handleChange={this.props.handleChange} filterObject={this.props.filterObject} method='job_type' clearAll={this.props.clearAll} cardTitle="Job type"/>
                 <Rate handleChange={this.props.handleChange}  jobPrice={this.props.filterObject.job_price} clearAll={this.props.clearAll} />

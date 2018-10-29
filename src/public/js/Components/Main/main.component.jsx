@@ -34,6 +34,7 @@ class MainComponent extends React.Component {
             clearAll: false
         }
         this.handleChange = this.handleChange.bind(this);
+        this.onSorting = this.onSorting.bind(this);
     }
     componentDidMount() {
         axios.get('/api/getJobSkills').then(res => {
@@ -94,7 +95,6 @@ class MainComponent extends React.Component {
                             }
                         }
                     } else {
-                        console.log(entry[k], k, that.state.resultObject);
                         if(entry[k] && that.state.resultObject[k] === entry[k]) {
                             return true;
                         }
@@ -114,6 +114,13 @@ class MainComponent extends React.Component {
             filteredJobs: resultObject
         });
     }
+    onSorting(value) {
+        var objs = this.state.filteredJobs;
+        objs.sort((a,b) => (a[value] > b[value]) ? 1 : ((b[value] > a[value]) ? -1 : 0)); 
+        this.setState({
+            filteredJobs: objs
+        });
+    }
 
     render() {
         return (
@@ -123,7 +130,7 @@ class MainComponent extends React.Component {
                         <FilterComponent clearAll={this.state.clearAll} handleChange={this.handleChange} filterObject={this.state.filterObject} />
                     </Col>
                     <Col span={10}>
-                        <ResultComponent jobs={this.state.filteredJobs} />
+                        <ResultComponent jobs={this.state.filteredJobs} onSorting={this.onSorting} />
                     </Col>
                     <Col span={4}>
                         <SideBarComponent />

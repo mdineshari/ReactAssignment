@@ -15,23 +15,21 @@ class Rate extends React.Component {
         this.clearAll = this.clearAll.bind(this);
     }
     onMinChange(value) {
-        const currentValue = this.state.inputValue;
-        currentValue[0] = value?value:0;
-        this.setState({
-            inputValue: currentValue
-        });
+        this.setState((prevState, props) => ({
+            inputValue: [value?value:0,prevState.inputValue[1]]
+        }));
+        this.props.handleChange('job_price',[value,this.state.inputValue[1]]);
     }
     onMaxChange(value) {
-        const currentValue = this.state.inputValue;
-        currentValue[1] = value?value:0;
-        this.setState({
-            inputValue: currentValue,
-            checked: false
-        });
+        this.setState((prevState, props) => ({
+            inputValue: [prevState.inputValue[0],value?value:0]
+        }));
+        this.props.handleChange('job_price',[this.state.inputValue[0],value]);
     }
     onChange(value) {
         this.setState({
-          inputValue: value
+          inputValue: value,
+          checked: false
         });
         this.props.handleChange('job_price',value);
     }
@@ -63,8 +61,9 @@ class Rate extends React.Component {
             >
             <InputNumber style={{ marginLeft: 16 }} value={inputValue[0]} onChange={this.onMinChange} />
             <InputNumber style={{ marginLeft: 16 }} value={inputValue[1]} onChange={this.onMaxChange} />
-                <Slider range onChange={this.onChange} value = {this.props.clearAll?[0,100]:inputValue} />
-                <Checkbox onChange={this.checkBoxHandler} checked={this.state.checked}>Include Profile without rate</Checkbox>
+            {inputValue}
+            <Slider range onChange={this.onChange} value = {this.props.clearAll?[0,100]:inputValue} />
+            <Checkbox onChange={this.checkBoxHandler} checked={this.state.checked}>Include Profile without rate</Checkbox>
             </Card>
         )
     }

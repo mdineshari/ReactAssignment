@@ -15,7 +15,7 @@ app.get('/', (req,res) => {
 app.get('/api/getJobSkills', (req,res) => {
     connection.query('SELECT * FROM `heroku_22f0d7c86999ffa`.`job_details`;', function (error, results, fields) {
         if (error)
-            throw error;
+            console.log(error);
         var skills = [];
         results.forEach(result => {
             console.log(result);
@@ -29,13 +29,9 @@ app.get('/api/getJobSkills', (req,res) => {
         res.send(results);
     });
     
-    //connection.end();
+    connection.end();
     
 });
-
-app.get('api/getResult', (req,res) => {
-    console.log('test');
-})
 
 app.listen(PORT, () => {
     console.log('server is listening on port: ', PORT);
