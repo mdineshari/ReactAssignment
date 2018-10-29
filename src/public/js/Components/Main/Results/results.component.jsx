@@ -23,7 +23,7 @@ class ResultComponent extends React.Component {
                                 style={{ width: 100 }} 
                                 optionFilterProp="children" 
                                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                                defaultValue="no_sort" 
+                                value={this.props.selectedValue} 
                                 onChange={this.props.onSorting}
                             >
                                 <Option value="no_sort" disabled>No Sorting</Option>

@@ -31,7 +31,8 @@ class MainComponent extends React.Component {
                 job_language: [],
                 job_price: null
             },
-            clearAll: false
+            clearAll: false,
+            selectedValue: 'no_sort'
         }
         this.handleChange = this.handleChange.bind(this);
         this.onSorting = this.onSorting.bind(this);
@@ -111,15 +112,18 @@ class MainComponent extends React.Component {
         }
         resultObject = resultObject.length === 0 ? this.state.jobs : resultObject;
         this.setState({
-            filteredJobs: resultObject
+            filteredJobs: resultObject,
+            selectedValue: 'no_sort'
         });
     }
     onSorting(value) {
         var objs = this.state.filteredJobs;
         objs.sort((a,b) => (a[value] > b[value]) ? 1 : ((b[value] > a[value]) ? -1 : 0)); 
         this.setState({
-            filteredJobs: objs
+            filteredJobs: objs,
+            selectedValue: value
         });
+        
     }
 
     render() {
@@ -130,7 +134,7 @@ class MainComponent extends React.Component {
                         <FilterComponent clearAll={this.state.clearAll} handleChange={this.handleChange} filterObject={this.state.filterObject} />
                     </Col>
                     <Col span={10}>
-                        <ResultComponent jobs={this.state.filteredJobs} onSorting={this.onSorting} />
+                        <ResultComponent jobs={this.state.filteredJobs} onSorting={this.onSorting} clearAll={this.state.clearAll} selectedValue={this.state.selectedValue}/>
                     </Col>
                     <Col span={4}>
                         <SideBarComponent />

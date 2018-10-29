@@ -17,13 +17,13 @@ class Countries extends React.Component {
         this.setState({
             value:[]
         });
-        this.props.handleChange(this.props.mdethod,[]);
+        this.props.handleChange(this.props.method,[]);
     }
     handleChange(value) {
         this.setState({
             value
         });
-        this.props.handleChange(this.props.mdethod,value);
+        this.props.handleChange(this.props.method,value);
     }
     getJobData() {
         let options=[];
