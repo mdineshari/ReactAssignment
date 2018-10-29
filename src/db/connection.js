@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const connection;
+var connection;
 
 function handleDisconnect() {
     connection = mysql.createConnection({
